@@ -45,7 +45,7 @@ class User extends Authenticatable
     {
         $this->notify(new PasswordResetNotification($token, new BareMail()));
     }
-    
+
     public function articles(): HasMany
     {
         return $this->hasMany('App\Article');
@@ -59,6 +59,11 @@ class User extends Authenticatable
     public function followings(): BelongsToMany
     {
         return $this->belongsToMany('App\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
+    }
+
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Article', 'likes')->withTimestamps();
     }
 
     public function isFollowedBy(?User $user): bool
