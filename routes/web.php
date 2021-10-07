@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+Route::prefix('login')->name('login.')->group(function () {
+    Route::get('/{provider}', 'Auth\LoginController@redirectToProvider')->name('{provider}');
+});
 Route::get('/', 'ArticleController@index')->name('articles.index'); //-- この行を編集
 Route::resource('/articles', 'ArticleController')->except(['index', 'show'])->middleware('auth'); //-- この行を変更
 Route::resource('/articles', 'ArticleController')->only(['show']);
